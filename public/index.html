@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Forged in Iron — Personal Training, Bridgwater</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --char-900:#2B2B2B; --char-800:#333231; --char-700:#444444; --grey-600:#6A6A6A; --grey-500:#8E8E8E; --grey-400:#B5B5B5;
+  --taupe-900:#3F3732; --taupe-700:#665B53; --taupe-500:#8A7F75; --taupe-300:#B1A69B; --stone:#D6D1CB;
+  --rust-900:#8A3E32; --rust:#B45A4B; --rust-300:#CA7465; --rose:#E09A8F;
+  --ink:#F1ECE6; --muted:#B9B1A8;
+  --line:rgba(214,209,203,.16);
+  --display:'Bebas Neue','Oswald',Impact,sans-serif;
+  --cond:'Oswald','Bebas Neue',sans-serif;
+  --body:'Plus Jakarta Sans',Inter,system-ui,sans-serif;
+  --serif:'Playfair Display',Georgia,serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--char-900);color:var(--ink);font-family:var(--body);font-weight:400;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.grain{position:fixed;inset:0;pointer-events:none;z-index:100;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* demo ribbon */
+.demo{background:var(--rust-900);color:#F6E3DE;font-size:12px;letter-spacing:.08em;text-transform:uppercase;text-align:center;padding:7px 16px}
+
+/* nav */
+header{position:sticky;top:0;z-index:50;background:rgba(43,43,43,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand svg{width:38px;height:38px}
+.brand b{font-family:var(--display);font-weight:400;font-size:26px;letter-spacing:.06em;line-height:1}
+.brand small{display:block;font-size:9.5px;letter-spacing:.32em;color:var(--muted);text-transform:uppercase;margin-top:3px}
+.links{display:flex;gap:30px;font-family:var(--cond);text-transform:uppercase;letter-spacing:.12em;font-size:13px;color:var(--muted)}
+.links a:hover{color:var(--ink)}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--cond);text-transform:uppercase;letter-spacing:.14em;font-size:13.5px;font-weight:500;padding:14px 22px;border-radius:2px;transition:.2s}
+.btn-rust{background:var(--rust);color:#fff}
+.btn-rust:hover{background:var(--rust-300)}
+.btn-ghost{border:1px solid rgba(241,236,230,.35)}
+.btn-ghost:hover{border-color:var(--ink);background:rgba(255,255,255,.04)}
+.btn .arr{transition:transform .2s}.btn:hover .arr{transform:translateX(3px)}
+.burger{display:none;width:40px;height:40px;align-items:center;justify-content:center}
+.burger span{display:block;width:22px;height:1.5px;background:var(--ink);box-shadow:0 7px 0 var(--ink),0 -7px 0 var(--ink)}
+.mobile-menu{display:none;flex-direction:column;padding:8px 24px 22px;gap:14px;font-family:var(--cond);text-transform:uppercase;letter-spacing:.14em;border-top:1px solid var(--line)}
+.mobile-menu.open{display:flex}
+
+/* hero */
+.hero{position:relative;overflow:hidden;background:radial-gradient(900px 500px at 78% 30%,rgba(180,90,75,.20),transparent 60%),linear-gradient(180deg,#2E2C2B 0%,var(--taupe-900) 100%)}
+.hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center;min-height:calc(100vh - 100px);padding-top:56px;padding-bottom:56px}
+.eyebrow{font-family:var(--cond);text-transform:uppercase;letter-spacing:.28em;font-size:12px;color:var(--rust-300);display:flex;align-items:center;gap:12px}
+.eyebrow:before{content:"";width:28px;height:1px;background:var(--rust)}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(58px,9vw,124px);line-height:.88;letter-spacing:.01em;margin:22px 0 26px}
+h1 em{font-style:normal;color:var(--rust)}
+.lead{font-size:17px;color:var(--muted);max-width:500px;font-weight:300}
+.lead strong{color:var(--ink);font-weight:500}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+.hero-meta{display:flex;gap:34px;margin-top:46px;padding-top:24px;border-top:1px solid var(--line);max-width:520px}
+.hero-meta div{font-family:var(--cond);text-transform:uppercase;letter-spacing:.14em;font-size:11px;color:var(--muted)}
+.hero-meta b{display:block;font-family:var(--display);font-weight:400;font-size:30px;letter-spacing:.03em;color:var(--ink);line-height:1.1}
+.portrait{position:relative;justify-self:end;width:100%;max-width:400px}
+.portrait .frame{position:absolute;inset:-14px 14px 14px -14px;border:1px solid rgba(202,116,101,.5);pointer-events:none}
+.portrait img{width:100%;aspect-ratio:434/700;object-fit:cover;object-position:top;filter:contrast(1.04) saturate(.9)}
+.portrait .tag{position:absolute;right:-10px;bottom:28px;background:var(--char-900);border:1px solid var(--line);padding:12px 16px;font-family:var(--cond);text-transform:uppercase;font-size:11px;letter-spacing:.2em;color:var(--muted)}
+.portrait .tag b{display:block;color:var(--ink);font-size:14px;letter-spacing:.12em;font-weight:500}
+.portrait .num{position:absolute;left:-36px;top:0;writing-mode:vertical-rl;transform:rotate(180deg);font-family:var(--cond);font-size:11px;letter-spacing:.3em;color:var(--grey-500)}
+
+/* value strip */
+.strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--char-800)}
+.strip .wrap{display:flex;justify-content:space-between;gap:20px;padding-top:22px;padding-bottom:22px;flex-wrap:wrap}
+.strip span{display:flex;align-items:center;gap:10px;font-family:var(--cond);text-transform:uppercase;letter-spacing:.2em;font-size:13px;color:var(--muted)}
+.strip svg{width:20px;height:20px;stroke:var(--rust-300)}
+
+/* sections */
+section{padding:110px 0}
+.sec-head{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end;margin-bottom:56px}
+h2{font-family:var(--display);font-weight:400;font-size:clamp(44px,6vw,76px);line-height:.92;letter-spacing:.01em;margin-top:16px}
+h2 em{font-style:normal;color:var(--rust)}
+.sec-head p{color:var(--muted);font-weight:300;max-width:440px;justify-self:end}
+.accent{font-family:var(--serif);font-style:italic;color:var(--rose)}
+
+/* services */
+.services{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line)}
+.svc{padding:34px 26px 38px;border-right:1px solid var(--line);position:relative;transition:background .25s}
+.svc:last-child{border-right:0}
+.svc:hover{background:rgba(255,255,255,.025)}
+.svc .n{font-family:var(--cond);font-size:12px;letter-spacing:.24em;color:var(--rust-300)}
+.svc h3{font-family:var(--display);font-weight:400;font-size:32px;letter-spacing:.03em;line-height:1;margin:26px 0 14px}
+.svc p{color:var(--muted);font-size:14.5px;font-weight:300}
+.svc ul{list-style:none;margin-top:20px;font-size:13px;color:var(--grey-400)}
+.svc li{padding:7px 0;border-top:1px solid var(--line);display:flex;gap:8px}
+.svc li:before{content:"—";color:var(--rust)}
+.svc .where{display:inline-block;margin-top:22px;font-family:var(--cond);text-transform:uppercase;letter-spacing:.18em;font-size:11px;padding:5px 9px;border:1px solid var(--line);color:var(--muted)}
+
+/* audience */
+.aud{background:linear-gradient(180deg,var(--taupe-900),#352F2B)}
+.aud-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:rgba(214,209,203,.05);border:1px solid var(--line);padding:32px 28px;position:relative}
+.card .k{font-family:var(--cond);font-size:11px;letter-spacing:.26em;color:var(--taupe-300);text-transform:uppercase}
+.card h3{font-family:var(--display);font-weight:400;font-size:34px;letter-spacing:.02em;margin:12px 0 12px;line-height:1}
+.card p{color:var(--muted);font-weight:300;font-size:15px}
+.card:after{content:"";position:absolute;left:28px;top:0;width:36px;height:2px;background:var(--rust)}
+
+/* about */
+.about .wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:70px;align-items:center}
+.about-img{position:relative}
+.about-img img{width:100%;aspect-ratio:3/4.4;object-fit:cover;object-position:top}
+.about-img .frame{position:absolute;inset:16px -16px -16px 16px;border:1px solid var(--line);z-index:-1}
+.about p{color:var(--muted);font-weight:300;margin-top:18px;max-width:560px}
+.about blockquote{font-family:var(--serif);font-style:italic;font-size:26px;line-height:1.35;color:var(--ink);margin:30px 0 8px;padding-left:22px;border-left:2px solid var(--rust);max-width:540px}
+.creds{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
+.creds span{font-family:var(--cond);text-transform:uppercase;letter-spacing:.14em;font-size:11.5px;padding:8px 12px;border:1px solid var(--line);color:var(--muted)}
+.ph{color:var(--rose);border-bottom:1px dashed rgba(224,154,143,.6)}
+
+/* process */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;counter-reset:s}
+.step{padding:0 26px 0 0;position:relative}
+.step .bar{height:1px;background:var(--line);margin-bottom:26px;position:relative}
+.step .bar:before{content:"";position:absolute;left:0;top:-3px;width:7px;height:7px;background:var(--rust);border-radius:50%}
+.step .n{font-family:var(--display);font-size:56px;line-height:1;color:var(--char-700);-webkit-text-stroke:1px var(--grey-600);color:transparent}
+.step h4{font-family:var(--cond);font-weight:500;text-transform:uppercase;letter-spacing:.1em;font-size:17px;margin:10px 0 8px}
+.step p{color:var(--muted);font-size:14.5px;font-weight:300}
+
+/* gallery */
+.gallery{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;padding:0 4px}
+.gallery img{width:100%;aspect-ratio:2/3;object-fit:cover;filter:grayscale(.25) contrast(1.05);transition:filter .3s}
+.gallery img:hover{filter:none}
+
+/* quote band */
+.band{position:relative;min-height:440px;display:flex;align-items:center;overflow:hidden;padding:0}
+.band img{position:absolute;right:0;top:0;height:100%;width:58%;object-fit:cover;object-position:center 20%}
+.band:before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,var(--char-900) 42%,rgba(43,43,43,.55) 70%,rgba(43,43,43,.2))}
+.band .wrap{position:relative;z-index:2;width:100%}
+.band h2{font-size:clamp(54px,8vw,108px)}
+
+/* pricing */
+.price-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.price{border:1px solid var(--line);padding:30px 24px;display:flex;flex-direction:column;background:rgba(255,255,255,.015)}
+.price.feat{background:linear-gradient(180deg,rgba(180,90,75,.14),rgba(180,90,75,.03));border-color:rgba(202,116,101,.5)}
+.price .k{font-family:var(--cond);text-transform:uppercase;letter-spacing:.2em;font-size:11.5px;color:var(--muted)}
+.price .amt{font-family:var(--display);font-size:62px;line-height:1;margin:16px 0 2px}
+.price .amt small{font-family:var(--body);font-size:14px;color:var(--muted);letter-spacing:0}
+.price .per{font-size:13px;color:var(--grey-500)}
+.price ul{list-style:none;margin:22px 0 26px;font-size:14px;color:var(--muted);flex:1}
+.price li{padding:6px 0;display:flex;gap:9px}
+.price li:before{content:"";flex:none;width:12px;height:1px;background:var(--rust);margin-top:12px}
+.price .btn{justify-content:center}
+.badge{align-self:flex-start;font-family:var(--cond);text-transform:uppercase;letter-spacing:.16em;font-size:10.5px;background:var(--rust);color:#fff;padding:4px 8px;margin-bottom:14px}
+.note{margin-top:22px;font-size:13px;color:var(--grey-500)}
+
+/* testimonials */
+.tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.tcard{border:1px dashed rgba(214,209,203,.28);padding:30px 26px;background:rgba(214,209,203,.03)}
+.tcard .q{font-family:var(--serif);font-size:54px;line-height:.6;color:var(--rust)}
+.tcard p{font-family:var(--serif);font-style:italic;font-size:18px;color:var(--taupe-300);margin:14px 0 18px}
+.tcard span{font-family:var(--cond);text-transform:uppercase;letter-spacing:.16em;font-size:11px;color:var(--grey-500)}
+
+/* booking */
+.book{background:linear-gradient(180deg,var(--char-800),var(--taupe-900))}
+.booker{display:grid;grid-template-columns:300px 1fr;border:1px solid var(--line);background:var(--char-900);min-height:520px}
+.bk-side{border-right:1px solid var(--line);padding:28px 24px;background:rgba(214,209,203,.03)}
+.bk-side .brand{margin-bottom:28px}
+.bk-steps{list-style:none;font-family:var(--cond);text-transform:uppercase;letter-spacing:.14em;font-size:12.5px}
+.bk-steps li{display:flex;align-items:center;gap:12px;padding:11px 0;color:var(--grey-500);border-top:1px solid var(--line)}
+.bk-steps li i{font-style:normal;width:22px;height:22px;border:1px solid var(--grey-600);display:grid;place-items:center;font-size:11px;border-radius:50%}
+.bk-steps li.on{color:var(--ink)}.bk-steps li.on i{border-color:var(--rust);background:var(--rust);color:#fff}
+.bk-steps li.done{color:var(--taupe-300)}.bk-steps li.done i{border-color:var(--taupe-500)}
+.summary{margin-top:26px;font-size:13.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:18px}
+.summary div{display:flex;justify-content:space-between;gap:10px;padding:4px 0}
+.summary b{color:var(--ink);font-weight:500;text-align:right}
+.bk-main{padding:32px 34px;position:relative}
+.bk-main h3{font-family:var(--display);font-weight:400;font-size:34px;letter-spacing:.03em;margin-bottom:6px}
+.bk-main .sub{color:var(--muted);font-size:14px;margin-bottom:24px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.opt{border:1px solid var(--line);padding:18px;text-align:left;transition:.2s;display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.opt:hover{border-color:var(--taupe-500);background:rgba(255,255,255,.02)}
+.opt.sel{border-color:var(--rust);background:rgba(180,90,75,.1)}
+.opt b{display:block;font-family:var(--cond);font-weight:500;text-transform:uppercase;letter-spacing:.08em;font-size:15px}
+.opt small{color:var(--muted);font-size:13px}
+.opt .p{font-family:var(--display);font-size:26px;white-space:nowrap}
+.cal-wrap{display:grid;grid-template-columns:1.2fr 1fr;gap:28px}
+.cal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-family:var(--cond);text-transform:uppercase;letter-spacing:.14em;font-size:13px}
+.cal-head button{width:30px;height:30px;border:1px solid var(--line)}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
+.cal .dow{font-size:10.5px;letter-spacing:.14em;color:var(--grey-500);padding:6px 0;font-family:var(--cond)}
+.cal button{aspect-ratio:1;font-size:14px;border:1px solid transparent;color:var(--grey-600)}
+.cal button.av{color:var(--ink);border-color:var(--line);background:rgba(255,255,255,.02)}
+.cal button.av:hover{border-color:var(--taupe-500)}
+.cal button.sel{background:var(--rust);border-color:var(--rust);color:#fff}
+.cal button:disabled{cursor:default}
+.times{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-content:start}
+.times .lbl{grid-column:1/-1;font-family:var(--cond);text-transform:uppercase;letter-spacing:.14em;font-size:12px;color:var(--muted);margin-bottom:4px}
+.times button{border:1px solid var(--line);padding:11px 0;font-size:14px}
+.times button:hover{border-color:var(--taupe-500)}
+.times button.sel{border-color:var(--rust);background:rgba(180,90,75,.14)}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form label{display:flex;flex-direction:column;gap:6px;font-family:var(--cond);text-transform:uppercase;letter-spacing:.14em;font-size:11px;color:var(--muted)}
+.form .full{grid-column:1/-1}
+.form input,.form select,.form textarea{font:inherit;font-family:var(--body);text-transform:none;letter-spacing:0;font-size:15px;color:var(--ink);background:rgba(255,255,255,.03);border:1px solid var(--line);padding:12px 13px;border-radius:2px;outline:none}
+.form input:focus,.form select:focus,.form textarea:focus{border-color:var(--taupe-500)}
+.form select option{background:var(--char-900)}
+.pay{border:1px solid var(--line);padding:22px;background:rgba(255,255,255,.02);max-width:480px}
+.pay-row{display:flex;justify-content:space-between;padding:8px 0;font-size:14.5px;color:var(--muted);border-bottom:1px solid var(--line)}
+.pay-row.tot{color:var(--ink);font-weight:600;border-bottom:0;font-size:16px;padding-top:12px}
+.pay-methods{display:flex;gap:8px;margin:18px 0}
+.pay-methods span{flex:1;text-align:center;border:1px solid var(--line);padding:10px 4px;font-size:12.5px;color:var(--muted)}
+.stripe-note{display:flex;gap:10px;align-items:flex-start;font-size:12.5px;color:var(--grey-500);margin-top:14px}
+.bk-nav{display:flex;justify-content:space-between;align-items:center;margin-top:30px;padding-top:22px;border-top:1px solid var(--line)}
+.bk-nav .btn[disabled]{opacity:.35;pointer-events:none}
+.done-box{text-align:center;padding:30px 10px}
+.done-box .tick{width:64px;height:64px;border-radius:50%;border:1px solid var(--rust);display:grid;place-items:center;margin:0 auto 22px}
+.done-box p{color:var(--muted);max-width:420px;margin:10px auto 0}
+.demo-chip{display:inline-block;margin-top:18px;font-size:12px;letter-spacing:.06em;color:var(--rose);border:1px dashed rgba(224,154,143,.5);padding:6px 10px}
+
+/* faq & contact */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:70px}
+details{border-top:1px solid var(--line);padding:18px 0}
+details:last-child{border-bottom:1px solid var(--line)}
+summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:20px;font-family:var(--cond);text-transform:uppercase;letter-spacing:.08em;font-size:16px}
+summary::-webkit-details-marker{display:none}
+summary:after{content:"+";color:var(--rust);font-size:20px;line-height:1}
+details[open] summary:after{content:"–"}
+details p{color:var(--muted);font-weight:300;font-size:15px;margin-top:10px}
+.contact-list{margin-top:26px}
+.contact-list div{display:flex;justify-content:space-between;gap:20px;padding:14px 0;border-top:1px solid var(--line);font-size:15px}
+.contact-list span{font-family:var(--cond);text-transform:uppercase;letter-spacing:.16em;font-size:11.5px;color:var(--grey-500)}
+.map{margin-top:26px;height:180px;border:1px solid var(--line);background:
+  radial-gradient(circle at 52% 48%,rgba(180,90,75,.9) 0 5px,rgba(180,90,75,.25) 6px 26px,transparent 27px),
+  repeating-linear-gradient(0deg,transparent 0 23px,rgba(214,209,203,.05) 23px 24px),
+  repeating-linear-gradient(90deg,transparent 0 23px,rgba(214,209,203,.05) 23px 24px),#2F2D2B;position:relative}
+.map span{position:absolute;left:50%;top:50%;transform:translate(14px,-30px);font-family:var(--cond);text-transform:uppercase;letter-spacing:.18em;font-size:11px;color:var(--muted)}
+
+footer{border-top:1px solid var(--line);padding:56px 0 36px;background:#262625}
+.foot{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap}
+.foot .tag{font-family:var(--display);font-size:40px;line-height:.95;letter-spacing:.02em;margin-top:22px}
+.foot .tag em{font-style:normal;color:var(--rust)}
+.foot-links{display:flex;gap:56px;font-size:14px;color:var(--muted)}
+.foot-links h5{font-family:var(--cond);font-weight:500;text-transform:uppercase;letter-spacing:.2em;font-size:11px;color:var(--grey-500);margin-bottom:12px}
+.foot-links a{display:block;padding:4px 0}
+.foot-links a:hover{color:var(--ink)}
+.legal{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);font-size:12px;color:var(--grey-600);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+
+@media (max-width:960px){
+  .links,.nav .btn{display:none}.burger{display:flex}
+  .hero .wrap{grid-template-columns:1fr;min-height:auto;padding-top:40px}
+  .portrait{justify-self:center;max-width:340px;margin-top:10px}.portrait .num{display:none}
+  .sec-head{grid-template-columns:1fr}.sec-head p{justify-self:start}
+  .services{grid-template-columns:1fr 1fr}.svc:nth-child(2){border-right:0}.svc:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .aud-grid,.tgrid{grid-template-columns:1fr}
+  .about .wrap{grid-template-columns:1fr;gap:40px}.about-img{max-width:380px}
+  .steps{grid-template-columns:1fr 1fr;gap:34px 0}
+  .gallery{grid-template-columns:repeat(3,1fr)}
+  .band img{width:100%;opacity:.45}.band:before{background:linear-gradient(90deg,var(--char-900) 10%,rgba(43,43,43,.6))}
+  .price-grid{grid-template-columns:1fr 1fr}
+  .booker{grid-template-columns:1fr}.bk-side{border-right:0;border-bottom:1px solid var(--line)}
+  .bk-steps{display:flex;gap:6px}.bk-steps li{border:0;padding:0;font-size:0;gap:0}.bk-side .brand,.summary{display:none}
+  .cal-wrap{grid-template-columns:1fr}
+  .two{grid-template-columns:1fr;gap:50px}
+}
+@media (max-width:600px){
+  section{padding:80px 0}
+  .wrap{padding:0 18px}
+  .services,.price-grid,.opts,.form{grid-template-columns:1fr}
+  .svc{border-right:0;border-bottom:1px solid var(--line)}
+  .steps{grid-template-columns:1fr}
+  .hero-meta{gap:22px}
+  .bk-main{padding:24px 18px}
+  .strip .wrap{justify-content:center}
+  .foot-links{gap:34px}
+}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<div class="demo">Demo site · prices, booking &amp; payments are placeholders</div>
+
+<header>
+  <div class="wrap nav">
+    <a href="#top" class="brand" aria-label="Forged in Iron home">
+      <svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect x=".75" y=".75" width="38.5" height="38.5" stroke="#B45A4B" stroke-width="1.5"/><path d="M11 29V11h11M11 20h8" stroke="#F1ECE6" stroke-width="3"/><path d="M27 11v18" stroke="#B45A4B" stroke-width="3"/></svg>
+      <span><b>FORGED IN IRON</b><small>Strength &amp; Coaching</small></span>
+    </a>
+    <nav class="links"><a href="#coaching">Coaching</a><a href="#about">About</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></nav>
+    <a href="#book" class="btn btn-rust">Book a session <span class="arr">→</span></a>
+    <button class="burger" aria-label="Menu" onclick="document.querySelector('.mobile-menu').classList.toggle('open')"><span></span></button>
+  </div>
+  <div class="mobile-menu" onclick="this.classList.remove('open')"><a href="#coaching">Coaching</a><a href="#about">About</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a><a href="#book" style="color:var(--rust-300)">Book a session →</a></div>
+</header>
+
+<main id="top">
+<section class="hero" style="padding:0">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Personal Training · Bridgwater, Somerset</div>
+      <h1>Discipline<br>builds momentum.<br><em>Consistency<br>builds change.</em></h1>
+      <p class="lead">One-to-one training, online coaching and nutrition support for people who are <strong>serious about progress</strong> — whether you're starting from zero, coming back after years off, or chasing your next level.</p>
+      <div class="cta-row">
+        <a href="#book" class="btn btn-rust">Book a free consult <span class="arr">→</span></a>
+        <a href="#coaching" class="btn btn-ghost">See coaching options</a>
+      </div>
+      <div class="hero-meta">
+        <div><b>1:1</b>In-person</div>
+        <div><b>Online</b>Coaching</div>
+        <div><b>Meal</b>Plans</div>
+      </div>
+    </div>
+    <div class="portrait reveal">
+      <span class="num">FII — 001 / Bridgwater</span>
+      <div class="frame"></div>
+      <img src="img/hero.jpg" alt="Forged in Iron coach, arms crossed">
+      <div class="tag">Your coach<b class="ph">[Brother's name]</b></div>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="wrap">
+    <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M2 12h2M20 12h2M6 7v10M18 7v10M9 9v6M15 9v6M9 12h6"/></svg>Strength</span>
+    <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M1 12h4M19 12h4"/></svg>Focus</span>
+    <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M3 17l6-6 4 4 8-8M15 7h6v6"/></svg>Progress</span>
+    <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6M15 14.5c3 0 6 2 6 5.5"/></svg>Support</span>
+    <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 3v18M7 21h10M4 7h16M4 7l-2.5 6a2.5 2.5 0 005 0zM20 7l-2.5 6a2.5 2.5 0 005 0z"/></svg>Balance</span>
+  </div>
+</div>
+
+<section id="coaching">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><div class="eyebrow">01 — Coaching</div><h2>Real coaching.<br><em>Real results.</em></h2></div>
+      <p>Four ways to work together. Every option starts with a free consult so the plan fits your body, your schedule and your goals — not someone else's.</p>
+    </div>
+    <div class="services reveal">
+      <div class="svc"><span class="n">01</span><h3>1:1 Personal Training</h3><p>Coached sessions where every rep is watched, corrected and progressed.</p><ul><li>Technique &amp; form</li><li>Progressive strength plan</li><li>Weekly progress tracking</li></ul><span class="where">In person · Bridgwater</span></div>
+      <div class="svc"><span class="n">02</span><h3>Online Coaching</h3><p>Your programme in your pocket, with weekly check-ins and video form reviews.</p><ul><li>Custom training app</li><li>Weekly check-in call</li><li>Message support</li></ul><span class="where">Anywhere</span></div>
+      <div class="svc"><span class="n">03</span><h3>Nutrition &amp; Meal Plans</h3><p>Simple, sustainable eating built around food you actually like.</p><ul><li>Personal targets</li><li>Meal plans &amp; swaps</li><li>Habit coaching</li></ul><span class="where">Add-on or standalone</span></div>
+      <div class="svc"><span class="n">04</span><h3>Programmes &amp; Accountability</h3><p>Structured plans for people who train alone but want direction.</p><ul><li>4–12 week blocks</li><li>Strength, fat loss, sport</li><li>Accountability check-ins</li></ul><span class="where">Online</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="aud">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><div class="eyebrow">02 — Who it's for</div><h2>Every starting point<br><em>is a good one.</em></h2></div>
+      <p>No ego, no intimidation. Just honest coaching that meets you where you are — and gets you somewhere better.</p>
+    </div>
+    <div class="aud-grid reveal">
+      <div class="card"><div class="k">Adults 40–60</div><h3>Getting back to it</h3><p>Returning after years away, or starting for the first time. Build strength safely, move better, and feel confident again.</p></div>
+      <div class="card"><div class="k">Teens &amp; young athletes</div><h3>Building the base</h3><p>Sport-ready strength, speed and good habits early — coached properly, with technique before load.</p></div>
+      <div class="card"><div class="k">Everyone else</div><h3>Results that last</h3><p>Weight loss, strength, fitness or just consistency. Practical plans and sustainable habits, not quick fixes.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="wrap">
+    <div class="about-img reveal"><div class="frame"></div><img src="img/stand.jpg" alt="Coach portrait"></div>
+    <div class="reveal">
+      <div class="eyebrow">03 — Your coach</div>
+      <h2>Hi, I'm <span class="ph">[Name]</span>.</h2>
+      <p>I'm a personal trainer based in Bridgwater, Somerset. <span class="ph">[A few lines on his story — how he got into training, what it changed for him, and why he coaches.]</span></p>
+      <p>My approach is simple: show up, do the work, and track it. I'll give you a plan that fits your life, coach you through every session, and keep you accountable when motivation dips.</p>
+      <blockquote>The work you put in today shapes the life you live tomorrow.</blockquote>
+      <div class="creds"><span class="ph">[Level 3 PT qualification]</span><span class="ph">[Nutrition cert]</span><span>Bridgwater &amp; Somerset</span><span>Online UK-wide</span></div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:20px">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><div class="eyebrow">04 — How it works</div><h2>Four steps.<br><em>No guesswork.</em></h2></div>
+      <p>From first chat to first PB, here's what working together looks like.</p>
+    </div>
+    <div class="steps reveal">
+      <div class="step"><div class="bar"></div><div class="n">01</div><h4>Free consult</h4><p>A 20-minute chat about your goals, history and schedule.</p></div>
+      <div class="step"><div class="bar"></div><div class="n">02</div><h4>Your plan</h4><p>A training and nutrition plan built around you.</p></div>
+      <div class="step"><div class="bar"></div><div class="n">03</div><h4>Train</h4><p>In person, online, or a mix — coached every step.</p></div>
+      <div class="step"><div class="bar"></div><div class="n">04</div><h4>Check in</h4><p>Weekly reviews keep you on track and progressing.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="gallery reveal">
+  <img src="img/s1.jpg" alt=""><img src="img/s2.jpg" alt=""><img src="img/s3.jpg" alt=""><img src="img/s4.jpg" alt=""><img src="img/s5.jpg" alt=""><img src="img/s6.jpg" alt="">
+</div>
+
+<section class="band">
+  <img src="img/gym.jpg" alt="">
+  <div class="wrap reveal">
+    <div class="eyebrow">Forged in Iron</div>
+    <h2>Discipline today.<br><em>Freedom tomorrow.</em></h2>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><div class="eyebrow">05 — Pricing</div><h2>Simple pricing.<br><em>No contracts.</em></h2></div>
+      <p>Start with a free consult. Pay per session, save with a pack, or go monthly for online coaching.</p>
+    </div>
+    <div class="price-grid reveal">
+      <div class="price"><div class="k">Start here</div><div class="amt">£0</div><div class="per">20-minute consult</div><ul><li>Goals &amp; history chat</li><li>Movement check</li><li>Plan recommendation</li></ul><a href="#book" class="btn btn-ghost" data-pick="consult">Book free</a></div>
+      <div class="price"><div class="k">Single session</div><div class="amt">£35</div><div class="per">60 min · in person</div><ul><li>1:1 coached session</li><li>Technique &amp; form work</li><li>Session notes</li></ul><a href="#book" class="btn btn-ghost" data-pick="pt">Book &amp; pay</a></div>
+      <div class="price feat"><span class="badge">Best value</span><div class="k">10-session pack</div><div class="amt">£300</div><div class="per">£30 per session</div><ul><li>10 × 60-min sessions</li><li>Personal programme</li><li>Progress check-ins</li></ul><a href="#book" class="btn btn-rust" data-pick="pack">Buy pack</a></div>
+      <div class="price"><div class="k">Online coaching</div><div class="amt">£79<small> /mo</small></div><div class="per">Cancel anytime</div><ul><li>Custom programme</li><li>Weekly check-in</li><li>Nutrition guidance</li></ul><a href="#book" class="btn btn-ghost" data-pick="online">Start monthly</a></div>
+    </div>
+    <p class="note">Sample prices for discussion. Nutrition &amp; meal plans available as a £25/month add-on.</p>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><div class="eyebrow">06 — Results</div><h2>Built different.<br><em>Built to last.</em></h2></div>
+      <p>Client stories and before-and-afters will go here once the first clients are on board.</p>
+    </div>
+    <div class="tgrid reveal">
+      <div class="tcard"><div class="q">"</div><p>Client testimonial placeholder — a short quote about their progress and what coaching was like.</p><span>Client name · Goal</span></div>
+      <div class="tcard"><div class="q">"</div><p>Client testimonial placeholder — ideally someone 40+ who came back to training.</p><span>Client name · Goal</span></div>
+      <div class="tcard"><div class="q">"</div><p>Client testimonial placeholder — ideally a young athlete or online client.</p><span>Client name · Goal</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="book" id="book">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><div class="eyebrow">07 — Book</div><h2>Show up.<br><em>Start today.</em></h2></div>
+      <p>Pick a session, choose a time that suits you, and pay securely. You'll get a confirmation and calendar invite straight away.</p>
+    </div>
+    <div class="booker reveal">
+      <aside class="bk-side">
+        <div class="brand"><svg viewBox="0 0 40 40" fill="none"><rect x=".75" y=".75" width="38.5" height="38.5" stroke="#B45A4B" stroke-width="1.5"/><path d="M11 29V11h11M11 20h8" stroke="#F1ECE6" stroke-width="3"/><path d="M27 11v18" stroke="#B45A4B" stroke-width="3"/></svg><span><b style="font-size:20px">FORGED IN IRON</b><small>Booking</small></span></div>
+        <ol class="bk-steps" id="bkSteps"><li><i>1</i>Session</li><li><i>2</i>Date &amp; time</li><li><i>3</i>Your details</li><li><i>4</i>Payment</li></ol>
+        <div class="summary" id="bkSum"></div>
+      </aside>
+      <div class="bk-main" id="bkMain"></div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap two">
+    <div class="reveal">
+      <div class="eyebrow">08 — FAQ</div><h2 style="margin-bottom:30px">Questions</h2>
+      <details open><summary>I'm totally new / haven't trained in years. Is this for me?</summary><p>Yes. Most clients start exactly there. Everything is scaled to your level, and technique always comes before weight.</p></details>
+      <details><summary>Where do sessions take place?</summary><p><span class="ph">[Gym name / location in Bridgwater]</span>. Outdoor and home sessions may be available by arrangement.</p></details>
+      <details><summary>Do you train teenagers?</summary><p>Yes — young athletes are welcome. Under-18s need a parent or guardian to book and consent.</p></details>
+      <details><summary>What's the cancellation policy?</summary><p>Free cancellation or rescheduling up to 24 hours before your session. Late cancellations are charged in full.</p></details>
+      <details><summary>How does online coaching work?</summary><p>You get a personalised programme in an app, log your sessions, send form videos, and have a weekly check-in to adjust the plan.</p></details>
+    </div>
+    <div class="reveal">
+      <div class="eyebrow">09 — Contact</div><h2>Get in <em>touch.</em></h2>
+      <div class="contact-list">
+        <div><span>Location</span>Bridgwater, Somerset</div>
+        <div><span>Email</span><span class="ph" style="font-family:var(--body);letter-spacing:0;text-transform:none;font-size:15px">hello@forgediniron.co.uk</span></div>
+        <div><span>Phone</span><span class="ph" style="font-family:var(--body);letter-spacing:0;text-transform:none;font-size:15px">07xxx xxxxxx</span></div>
+        <div><span>Instagram</span><span class="ph" style="font-family:var(--body);letter-spacing:0;text-transform:none;font-size:15px">@forgediniron</span></div>
+      </div>
+      <div class="map"><span>Bridgwater</span></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <a href="#top" class="brand"><svg viewBox="0 0 40 40" fill="none"><rect x=".75" y=".75" width="38.5" height="38.5" stroke="#B45A4B" stroke-width="1.5"/><path d="M11 29V11h11M11 20h8" stroke="#F1ECE6" stroke-width="3"/><path d="M27 11v18" stroke="#B45A4B" stroke-width="3"/></svg><span><b>FORGED IN IRON</b><small>Strength &amp; Coaching</small></span></a>
+        <div class="tag">We work. We grow.<br><em>We become.</em></div>
+      </div>
+      <div class="foot-links">
+        <div><h5>Coaching</h5><a href="#coaching">Personal training</a><a href="#coaching">Online coaching</a><a href="#coaching">Nutrition</a><a href="#pricing">Pricing</a></div>
+        <div><h5>Studio</h5><a href="#about">About</a><a href="#faq">FAQ</a><a href="#book">Book</a><a href="#faq">Contact</a></div>
+      </div>
+    </div>
+    <div class="legal"><span>© 2026 Forged in Iron · Bridgwater, Somerset</span><span>Demo build · Privacy · Terms</span></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const SERVICES={
+    consult:{name:'Free consult',desc:'20 min · video or in person',price:0,dur:'20 min',kind:'session'},
+    pt:{name:'1:1 PT session',desc:'60 min · Bridgwater',price:35,dur:'60 min',kind:'session'},
+    pack:{name:'10-session pack',desc:'Book your first session now',price:300,dur:'60 min',kind:'session'},
+    online:{name:'Online coaching',desc:'Monthly · starts with a kick-off call',price:79,dur:'30 min call',kind:'monthly'}
+  };
+  const S={step:0,svc:null,date:null,time:null,name:'',email:'',phone:'',goal:'',month:null};
+  const main=document.getElementById('bkMain'),steps=document.getElementById('bkSteps'),sum=document.getElementById('bkSum');
+  const today=new Date();today.setHours(0,0,0,0);
+  S.month=new Date(today.getFullYear(),today.getMonth(),1);
+  const DOW=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  const fmt=d=>d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
+  const money=n=>n===0?'Free':'£'+n;
+  function available(d){const diff=(d-today)/864e5;if(diff<1||diff>45)return false;return d.getDay()!==0 && (d.getDate()*7)%5!==0;}
+  function slots(d){const base=d.getDay()===6?['08:00','09:00','10:00','11:00']:['06:30','07:30','12:00','17:30','18:30','19:30'];return base.filter((t,i)=>(d.getDate()+i)%4!==0);}
+  function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+
+  function renderSide(){
+    [...steps.children].forEach((li,i)=>{li.className=i===S.step?'on':(i<S.step||S.step>3?'done':'');});
+    const v=S.svc&&SERVICES[S.svc];
+    sum.innerHTML=v?`<div><span>Session</span><b>${v.name}</b></div>${S.date?`<div><span>When</span><b>${fmt(S.date)}${S.time?' · '+S.time:''}</b></div>`:''}<div><span>Total</span><b>${money(v.price)}${v.kind==='monthly'?' /mo':''}</b></div>`:'<div style="color:var(--grey-500)">Choose a session to start.</div>';
+  }
+  function nav(canNext,nextLabel){
+    return `<div class="bk-nav">${S.step>0?'<button class="btn btn-ghost" data-act="back">← Back</button>':'<span></span>'}<button class="btn btn-rust" data-act="next" ${canNext?'':'disabled'}>${nextLabel||'Continue'} <span class="arr">→</span></button></div>`;
+  }
+  function render(){
+    renderSide();
+    let h='';
+    if(S.step===0){
+      h=`<h3>Choose your session</h3><p class="sub">Not sure? Start with the free consult.</p><div class="opts">`+
+      Object.entries(SERVICES).map(([k,v])=>`<button class="opt ${S.svc===k?'sel':''}" data-svc="${k}"><span><b>${v.name}</b><small>${v.desc}</small></span><span class="p">${money(v.price)}${v.kind==='monthly'?'<small style="font-family:var(--body);font-size:12px"> /mo</small>':''}</span></button>`).join('')+`</div>`+nav(!!S.svc);
+    } else if(S.step===1){
+      const m=S.month,first=new Date(m.getFullYear(),m.getMonth(),1),days=new Date(m.getFullYear(),m.getMonth()+1,0).getDate();
+      const lead=(first.getDay()+6)%7;let cells=DOW.map(d=>`<div class="dow">${d}</div>`).join('')+'<span></span>'.repeat(lead);
+      for(let i=1;i<=days;i++){const d=new Date(m.getFullYear(),m.getMonth(),i);const av=available(d);const sel=S.date&&+S.date===+d;cells+=`<button class="${av?'av':''} ${sel?'sel':''}" ${av?`data-day="${+d}"`:'disabled'}>${i}</button>`;}
+      const canPrev=m>new Date(today.getFullYear(),today.getMonth(),1);
+      const times=S.date?slots(S.date).map(t=>`<button class="${S.time===t?'sel':''}" data-time="${t}">${t}</button>`).join(''):'<p style="grid-column:1/-1;color:var(--grey-500);font-size:14px">Pick a date to see open times.</p>';
+      h=`<h3>Pick a date &amp; time</h3><p class="sub">${SERVICES[S.svc].dur} · times shown in UK time</p><div class="cal-wrap"><div><div class="cal-head"><button data-act="prev" ${canPrev?'':'disabled style="opacity:.3"'}>‹</button><span>${m.toLocaleDateString('en-GB',{month:'long',year:'numeric'})}</span><button data-act="nextm">›</button></div><div class="cal">${cells}</div></div><div class="times"><div class="lbl">${S.date?fmt(S.date):'Available times'}</div>${times}</div></div>`+nav(S.date&&S.time);
+    } else if(S.step===2){
+      h=`<h3>Your details</h3><p class="sub">So your coach can prepare for your first session.</p><form class="form" id="bkForm" onsubmit="return false"><label>Full name<input name="name" value="${esc(S.name)}" autocomplete="off"></label><label>Email<input name="email" type="email" value="${esc(S.email)}" autocomplete="off"></label><label>Phone<input name="phone" value="${esc(S.phone)}" autocomplete="off"></label><label>Main goal<select name="goal">${['','Lose weight','Build strength','Get fit again','Sport performance','Not sure yet'].map(o=>`<option ${S.goal===o?'selected':''}>${o}</option>`).join('')}</select></label><label class="full">Anything I should know? (injuries, experience)<textarea name="notes" rows="3"></textarea></label></form>`+nav(S.name.trim()&&S.email.includes('@'),SERVICES[S.svc].price?'Continue to payment':'Confirm booking');
+    } else if(S.step===3){
+      const v=SERVICES[S.svc];
+      h=`<h3>Payment</h3><p class="sub">Secure checkout. In the live site this hands off to Stripe.</p><div class="pay"><div class="pay-row"><span>${v.name}</span><span>£${v.price}${v.kind==='monthly'?' /mo':''}</span></div><div class="pay-row"><span>${fmt(S.date)} · ${S.time}</span><span>${v.dur}</span></div><div class="pay-row tot"><span>Due today</span><span>£${v.price}</span></div><div class="pay-methods"><span>Card</span><span>Apple Pay</span><span>Google Pay</span></div><button class="btn btn-rust" style="width:100%;justify-content:center" data-act="pay">Pay £${v.price} <span class="arr">→</span></button><div class="stripe-note"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8E8E8E" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="1"/><path d="M8 10V7a4 4 0 018 0v3"/></svg><span>Demo only — no card details are collected and nothing is charged.</span></div></div>`+`<div class="bk-nav"><button class="btn btn-ghost" data-act="back">← Back</button><span></span></div>`;
+    } else {
+      const v=SERVICES[S.svc];
+      h=`<div class="done-box"><div class="tick"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#CA7465" stroke-width="2"><path d="M5 12l5 5 9-10"/></svg></div><h3>You're booked in${S.name?', '+esc(S.name.split(' ')[0]):''}.</h3><p>${v.name} on <b style="color:var(--ink)">${fmt(S.date)} at ${S.time}</b>. A confirmation email and calendar invite would be sent to ${esc(S.email)}, with a reminder 24 hours before.</p><span class="demo-chip">Demo booking — nothing was saved or charged</span><div style="margin-top:28px"><button class="btn btn-ghost" data-act="reset">Book another</button></div></div>`;
+    }
+    main.innerHTML=h;
+  }
+  main.addEventListener('click',e=>{
+    const t=e.target.closest('button');if(!t)return;
+    if(t.dataset.svc){S.svc=t.dataset.svc;render();return;}
+    if(t.dataset.day){S.date=new Date(+t.dataset.day);S.time=null;render();return;}
+    if(t.dataset.time){S.time=t.dataset.time;render();return;}
+    const a=t.dataset.act;
+    if(a==='next'){if(S.step===2&&!SERVICES[S.svc].price){S.step=4;}else S.step++;render();}
+    else if(a==='back'){S.step--;render();}
+    else if(a==='prev'){S.month=new Date(S.month.getFullYear(),S.month.getMonth()-1,1);render();}
+    else if(a==='nextm'){S.month=new Date(S.month.getFullYear(),S.month.getMonth()+1,1);render();}
+    else if(a==='pay'){t.textContent='Processing…';setTimeout(()=>{S.step=4;render();},900);}
+    else if(a==='reset'){Object.assign(S,{step:0,svc:null,date:null,time:null,name:'',email:'',phone:'',goal:''});render();}
+  });
+  main.addEventListener('input',e=>{
+    const f=e.target;if(!f.name||!(f.name in S))return;S[f.name]=f.value;
+    const btn=main.querySelector('[data-act="next"]');if(btn&&S.step===2){btn.disabled=!(S.name.trim()&&S.email.includes('@'));}
+  });
+  document.querySelectorAll('[data-pick]').forEach(a=>a.addEventListener('click',()=>{S.svc=a.dataset.pick;S.step=1;render();}));
+  render();
+
+  const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}}),{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+})();
+</script>
+</body>
+</html>
